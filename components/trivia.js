@@ -10,6 +10,14 @@ export function Trivia() {
   useEffect(() => {
     fetchQuiz(setQuestion);
   }, [nextClicked]);
+  //used to get score from local storage initially
+  useEffect(() => {
+    localStorage.getItem("score") === null
+      ? localStorage.setItem("score", 0)
+      : null;
+    let scr = localStorage.getItem("score");
+    setScore(parseInt(scr));
+  }, []);
   return (
     <main className="-mt-32 mb-4">
       <header className="py-10">

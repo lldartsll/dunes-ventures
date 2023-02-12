@@ -27,6 +27,7 @@ export function NextButton({
           question.incorrect_answers[selectedAnswer] === question.correct_answer
         ) {
           setScore(score + 1);
+          localStorage.setItem("score", parseInt(score + 1));
         }
         setSelectedAnswer(null);
       }}
