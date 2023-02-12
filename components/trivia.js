@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AnswersButton } from "./answerButton";
 import { Question } from "./question";
 import { NextButton } from "./nextBTN";
+import { ScoreContext } from "@/lib/scoreContext";
 export function Trivia() {
-  const [score, setScore] = useState(0);
+  const { score, setScore } = useContext(ScoreContext);
   const [question, setQuestion] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [nextClicked, setNextClicked] = useState(false);
