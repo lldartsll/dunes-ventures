@@ -8,23 +8,8 @@ export function Trivia() {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [nextClicked, setNextClicked] = useState(false);
   useEffect(() => {
-    fetch("https://opentdb.com/api.php?amount=1")
-      .then((response) => response.json())
-      .then((data) => {
-        let questionObject = data.results[0];
-        const NumberOfPossibleAnswers = questionObject.incorrect_answers.length;
-        const CAindex = Math.floor(Math.random() * NumberOfPossibleAnswers);
-        questionObject.incorrect_answers.splice(
-          CAindex,
-          0,
-          questionObject.correct_answer
-        );
-        setQuestion(questionObject);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    fetchQuiz(setQuestion);
+  }, [nextClicked]);
   return (
     <main className="-mt-32 mb-4">
       <header className="py-10">
@@ -61,9 +46,31 @@ export function Trivia() {
         <NextButton
           selectedAnswer={selectedAnswer}
           setSelectedAnswer={setSelectedAnswer}
+          nextClicked={nextClicked}
           setNextClicked={setNextClicked}
+          score={score}
+          setScore={setScore}
+          question={question}
         />
       </div>
     </main>
   );
+}
+function fetchQuiz(setQuestion) {
+  fetch("https://opentdb.com/api.php?amount=1")
+    .then((response) => response.json())
+    .then((data) => {
+      let questionObject = data.results[0];
+      const NumberOfPossibleAnswers = questionObject.incorrect_answers.length;
+      const CAindex = Math.floor(Math.random() * NumberOfPossibleAnswers);
+      questionObject.incorrect_answers.splice(
+        CAindex,
+        0,
+        questionObject.correct_answer
+      );
+      setQuestion(questionObject);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }

@@ -2,7 +2,11 @@ import { ArrowSmallRightIcon } from "@heroicons/react/20/solid";
 export function NextButton({
   selectedAnswer,
   setSelectedAnswer,
+  nextClicked,
   setNextClicked,
+  score,
+  setScore,
+  question,
 }) {
   return (
     <button
@@ -17,11 +21,14 @@ export function NextButton({
         //   question.incorrect_answers[selectedAnswer] ===
         //     question.correct_answer
         // );
-        //make selecte answer null
+        //make selected answer null
+        setNextClicked(!nextClicked);
+        if (
+          question.incorrect_answers[selectedAnswer] === question.correct_answer
+        ) {
+          setScore(score + 1);
+        }
         setSelectedAnswer(null);
-        setNextClicked(true);
-        // setQuestion(null);
-        // //fetch next question
       }}
     >
       Next Question
